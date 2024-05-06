@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tap Detector</title>
+<style>
+    html {
+        height: 100%;
+    }
+    body {
+        height: 100%;
+        margin: 0;
+        color: #fff;
+        font-family: sans-serif;
+        text-shadow: rgba(0, 0, 0, 0.5) 2px 2px 5px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        touch-action: none;
+    }
+    #top {
+        flex: 1;
+        background: rgb(51, 152, 219);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 3em;
+        transform: rotate(180deg);
+    }
+    #bottom {
+        flex: 1;
+        background: rgb(123, 189, 37);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 3em;
+    }
+</style>
+</head>
+<body>
+
+<div id="top">Player 1</div>
+<div id="bottom">Player 2</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var topHalfTouched = false;
+    var bottomHalfTouched = false;
+
+    var topDiv = document.getElementById("top");
+    var bottomDiv = document.getElementById("bottom");
+
+    function handleTouchStart(e) {
+        var touchY = e.touches[0].clientY;
+        if (touchY < window.innerHeight / 2) {
+            if (!topHalfTouched) {
+                topHalfTouched = true;
+                checkTouched();
+            }
+        } else {
+            if (!bottomHalfTouched) {
+                bottomHalfTouched = true;
+                checkTouched();
+            }
+        }
+    }
+
+    function checkTouched() {
+        if (topHalfTouched && bottomHalfTouched) {
+            if (topHalfTouched && !bottomHalfTouched) {
+                alert("Player 1 tapped first!");
+            } else if (!topHalfTouched && bottomHalfTouched) {
+                alert("Player 2 tapped first!");
+            }
+            // Reset the flags after checking
+            topHalfTouched = false;
+            bottomHalfTouched = false;
+        }
+    }
+
+    topDiv.addEventListener("touchstart", handleTouchStart);
+    bottomDiv.addEventListener("touchstart", handleTouchStart);
+});
+</script>
+
+</body>
+</html>
