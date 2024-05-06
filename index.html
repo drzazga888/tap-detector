@@ -45,38 +45,11 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    var topHalfTouched = false;
-    var bottomHalfTouched = false;
-
     var topDiv = document.getElementById("top");
     var bottomDiv = document.getElementById("bottom");
 
     function handleTouchStart(e) {
-        var touchY = e.touches[0].clientY;
-        if (touchY < window.innerHeight / 2) {
-            if (!topHalfTouched) {
-                topHalfTouched = true;
-                checkTouched();
-            }
-        } else {
-            if (!bottomHalfTouched) {
-                bottomHalfTouched = true;
-                checkTouched();
-            }
-        }
-    }
-
-    function checkTouched() {
-        if (topHalfTouched && bottomHalfTouched) {
-            if (topHalfTouched && !bottomHalfTouched) {
-                alert("Player 1 tapped first!");
-            } else if (!topHalfTouched && bottomHalfTouched) {
-                alert("Player 2 tapped first!");
-            }
-            // Reset the flags after checking
-            topHalfTouched = false;
-            bottomHalfTouched = false;
-        }
+        alert(`${e.target.innerText} tapped first!`);
     }
 
     topDiv.addEventListener("touchstart", handleTouchStart);
